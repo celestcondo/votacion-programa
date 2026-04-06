@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<title>Votaci&oacute;n | Programa de Afiliados &ndash; Tiendanube</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:#f6f6f6;color:#0a0a0a;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+.container{max-width:640px;margin:0 auto;padding:0 20px}
+
+header{background:#fff;border-bottom:1px solid #e7e7e7;padding:20px 0;text-align:center}
+header img{height:48px;margin-bottom:12px}
+header h1{font-size:1.375rem;font-weight:700;color:#0a0a0a;margin-bottom:4px}
+header p{font-size:.875rem;color:#5d5d5d}
+
+.steps{padding:32px 0 48px}
+.step{margin-bottom:32px}
+.step-header{
+  display:flex;align-items:center;gap:10px;margin-bottom:16px;
+}
+.step-number{
+  width:32px;height:32px;border-radius:8px;
+  background:#0059d5;color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.8125rem;font-weight:700;flex-shrink:0;
+}
+.step-title{font-size:1.0625rem;font-weight:700;color:#0a0a0a}
+.step-desc{font-size:.8125rem;color:#5d5d5d;margin-bottom:12px;padding-left:42px}
+
+.options{display:flex;flex-direction:column;gap:8px;padding-left:42px}
+.option{
+  position:relative;
+}
+.option input[type="radio"]{
+  position:absolute;opacity:0;width:0;height:0;
+}
+.option label{
+  display:flex;align-items:center;gap:12px;
+  padding:14px 16px;border-radius:10px;
+  border:1px solid #e7e7e7;background:#fff;
+  cursor:pointer;transition:border-color .15s,background-color .15s;
+  font-size:.875rem;color:#0a0a0a;font-weight:500;
+  line-height:1.4;
+}
+.option label:hover{border-color:#96c1fc;background:#f8fbff}
+.option input[type="radio"]:checked + label{
+  border-color:#0059d5;background:#eef5ff;
+  box-shadow:0 0 0 1px #0059d5;
+}
+.option input[type="radio"]:focus-visible + label{
+  outline:2px solid #0059d5;outline-offset:2px;
+}
+.radio-dot{
+  width:20px;height:20px;border-radius:50%;
+  border:2px solid #d1d1d1;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  transition:border-color .15s;
+}
+.option input[type="radio"]:checked + label .radio-dot{
+  border-color:#0059d5;
+}
+.option input[type="radio"]:checked + label .radio-dot::after{
+  content:'';width:10px;height:10px;border-radius:50%;
+  background:#0059d5;
+}
+.option-text{flex:1}
+.option-text .name{font-weight:600;display:block}
+.option-text .desc{font-size:.75rem;color:#5d5d5d;margin-top:2px;display:block}
+
+.option-note{
+  font-size:.75rem;color:#5d5d5d;font-style:italic;
+  padding-left:42px;margin-top:4px;
+}
+.custom-input{
+  width:100%;margin-top:6px;padding:8px 10px;border-radius:6px;
+  border:1px solid #e7e7e7;background:#fff;color:#0a0a0a;
+  font-family:inherit;font-size:.8125rem;outline:none;
+  transition:border-color .15s;
+}
+.custom-input::placeholder{color:#b0b0b0}
+.custom-input:focus{border-color:#0059d5;box-shadow:0 0 0 2px rgba(0,89,213,.1)}
+
+/* Color previews */
+.color-preview{
+  display:flex;gap:6px;margin-top:6px;
+}
+.color-dot{
+  width:16px;height:16px;border-radius:4px;
+  border:1px solid rgba(0,0,0,.1);
+}
+
+/* Style mockups */
+.style-mockup{
+  margin-top:12px;border-radius:8px;overflow:hidden;
+  border:1px solid rgba(0,0,0,.1);
+  font-size:0;line-height:0;
+}
+.mockup-nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:6px 12px;font-size:.5rem;font-weight:600;
+}
+.mockup-body{padding:16px 12px;text-align:center}
+.mockup-badge{
+  display:inline-block;font-size:.4375rem;font-weight:600;
+  padding:2px 8px;border-radius:10px;margin-bottom:6px;
+  letter-spacing:.3px;
+}
+.mockup-title{font-size:.75rem;font-weight:700;line-height:1.2;margin-bottom:4px}
+.mockup-sub{font-size:.4375rem;line-height:1.4;margin-bottom:10px}
+.mockup-btn{
+  display:inline-block;font-size:.4375rem;font-weight:600;
+  padding:4px 14px;border-radius:4px;
+}
+.mockup-cards{display:flex;gap:4px;margin-top:10px;justify-content:center}
+.mockup-card{border-radius:4px;padding:6px 4px;text-align:center;flex:1;max-width:72px}
+.mockup-card-label{font-size:.375rem;font-weight:600;margin-top:2px}
+.mockup-card-sub{font-size:.3125rem;margin-top:1px}
+/* Dark mockup */
+.mockup-dark .mockup-nav{background:#0a1225;color:rgba(255,255,255,.5);border-bottom:1px solid rgba(255,255,255,.06)}
+.mockup-dark .mockup-body{background:#070e1b;position:relative}
+.mockup-dark .mockup-badge{background:rgba(59,130,246,.12);color:#60a5fa;border:1px solid rgba(96,165,250,.2)}
+.mockup-dark .mockup-title{color:#f0f4ff}
+.mockup-dark .mockup-title em{color:#60a5fa;font-style:normal}
+.mockup-dark .mockup-sub{color:rgba(255,255,255,.45)}
+.mockup-dark .mockup-btn{background:linear-gradient(135deg,#0059d5,#3b82f6);color:#fff}
+.mockup-dark .mockup-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07)}
+.mockup-dark .mockup-card:nth-child(1) .mockup-card-label{color:#60a5fa}
+.mockup-dark .mockup-card:nth-child(2) .mockup-card-label{color:#ec4899}
+.mockup-dark .mockup-card:nth-child(3) .mockup-card-label{color:#f59e0b}
+.mockup-dark .mockup-card-sub{color:rgba(255,255,255,.35)}
+.mockup-dark .mockup-dots{position:absolute;top:0;left:0;right:0;bottom:0;overflow:hidden;pointer-events:none}
+.mockup-dark .mockup-dots span{
+  position:absolute;width:2px;height:2px;border-radius:50%;
+  background:rgba(96,165,250,.25);
+}
+/* Light mockup */
+.mockup-light .mockup-nav{background:#fff;color:#5d5d5d;border-bottom:1px solid #e7e7e7}
+.mockup-light .mockup-body{background:#fff}
+.mockup-light .mockup-badge{background:#eef5ff;color:#0059d5;border:1px solid #96c1fc}
+.mockup-light .mockup-title{color:#0a0a0a}
+.mockup-light .mockup-title em{color:#0059d5;font-style:normal}
+.mockup-light .mockup-sub{color:#5d5d5d}
+.mockup-light .mockup-btn{background:#0059d5;color:#fff}
+.mockup-light .mockup-card{background:#fff;border:1px solid #e7e7e7}
+.mockup-light .mockup-card:nth-child(1){border-top:2px solid #0059d5}
+.mockup-light .mockup-card:nth-child(2){border-top:2px solid #00c87b}
+.mockup-light .mockup-card:nth-child(3){border-top:2px solid #c87b00}
+.mockup-light .mockup-card:nth-child(1) .mockup-card-label{color:#0059d5}
+.mockup-light .mockup-card:nth-child(2) .mockup-card-label{color:#00c87b}
+.mockup-light .mockup-card:nth-child(3) .mockup-card-label{color:#c87b00}
+.mockup-light .mockup-card-sub{color:#5d5d5d}
+
+/* Divider */
+.divider{height:1px;background:#e7e7e7;margin:8px 42px}
+
+/* Submit */
+.submit-section{
+  padding:24px 0 48px;text-align:center;
+}
+.btn-vote{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  font-family:inherit;font-weight:600;font-size:1rem;
+  padding:14px 40px;border-radius:10px;border:none;
+  background:#0059d5;color:#fff;cursor:pointer;
+  transition:background-color .2s,transform .15s;
+  touch-action:manipulation;
+  min-width:240px;
+}
+.btn-vote:hover{background:#00429f}
+.btn-vote:active{background:#00347d;transform:scale(.98)}
+.btn-vote:focus-visible{outline:2px solid #0059d5;outline-offset:2px}
+.btn-vote:disabled{background:#b0b0b0;cursor:not-allowed;transform:none}
+
+.vote-error{
+  color:#c80003;font-size:.8125rem;margin-bottom:12px;
+  min-height:18px;
+}
+
+/* Success */
+.success-card{
+  display:none;
+  background:#fff;border:1px solid #e7e7e7;
+  border-radius:16px;padding:48px 32px;text-align:center;
+  margin:48px auto;max-width:480px;
+}
+.success-card .check-icon{
+  width:56px;height:56px;border-radius:50%;
+  background:#defef2;color:#00c87b;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 20px;font-size:1.5rem;font-weight:700;
+}
+.success-card h2{font-size:1.25rem;font-weight:700;color:#0a0a0a;margin-bottom:8px}
+.success-card p{color:#5d5d5d;font-size:.875rem;line-height:1.6}
+
+/* Results (hidden by default) */
+.results-section{display:none;padding:32px 0 48px}
+.result-group{margin-bottom:28px}
+.result-group h3{font-size:.9375rem;font-weight:700;color:#0a0a0a;margin-bottom:12px}
+.result-bar-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.result-label{font-size:.8125rem;color:#0a0a0a;font-weight:500;width:240px;flex-shrink:0}
+.result-bar-wrap{flex:1;height:24px;background:#e7e7e7;border-radius:6px;overflow:hidden;position:relative}
+.result-bar{height:100%;border-radius:6px;background:#0059d5;transition:width .6s ease;min-width:2px}
+.result-count{font-size:.75rem;font-weight:600;color:#5d5d5d;width:40px;text-align:right;font-variant-numeric:tabular-nums}
+
+footer{border-top:1px solid #e7e7e7;padding:16px 0;text-align:center;color:#b0b0b0;font-size:.75rem}
+
+@media(max-width:640px){
+  .options{padding-left:0}
+  .step-desc{padding-left:0}
+  .option-note{padding-left:0}
+  .divider{margin:8px 0}
+  .result-bar-row{flex-wrap:wrap}
+  .result-label{width:100%}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <img src="tn_partners_logo_dark.svg" alt="Tiendanube Partners" width="160" height="48">
+  <h1>Ayudanos a definir el programa</h1>
+  <p>Vot&aacute; la opci&oacute;n que m&aacute;s te guste &bull; An&oacute;nimo &bull; 1&nbsp;minuto</p>
+</header>
+
+<div class="container">
+
+  <form id="voteForm" class="steps" onsubmit="return handleVote(event)">
+
+    <!-- PREGUNTA 1: NOMBRE -->
+    <div class="step">
+      <div class="step-header">
+        <div class="step-number">1</div>
+        <div class="step-title">Nombre del programa</div>
+      </div>
+      <p class="step-desc">&iquest;C&oacute;mo deber&iacute;a llamarse el programa?</p>
+      <div class="options">
+        <div class="option">
+          <input type="radio" name="nombre" id="n1" value="Programa de Reconocimiento &mdash; Afiliados de Tiendanube" required>
+          <label for="n1">
+            <span class="radio-dot"></span>
+            <span class="option-text">
+              <span class="name">Programa de Reconocimiento</span>
+              <span class="desc">Afiliados de Tiendanube</span>
+            </span>
+          </label>
+        </div>
+        <div class="option">
+          <input type="radio" name="nombre" id="n2" value="Club de Afiliados &mdash; Tiendanube">
+          <label for="n2">
+            <span class="radio-dot"></span>
+            <span class="option-text">
+              <span class="name">Club de Afiliados</span>
+              <span class="desc">Tiendanube</span>
+            </span>
+          </label>
+        </div>
+        <div class="option">
+          <input type="radio" name="nombre" id="n3" value="Referentes Nube">
+          <label for="n3">
+            <span class="radio-dot"></span>
+            <span class="option-text">
+              <span class="name">Referentes Nube</span>
+            </span>
+          </label>
+        </div>
+        <div class="option">
+          <input type="radio" name="nombre" id="n4" value="__custom__" onclick="document.getElementById('nombreCustom').focus()">
+          <label for="n4">
+            <span class="radio-dot"></span>
+            <span class="option-text">
+              <span class="name">Otra idea</span>
+              <input type="text" id="nombreCustom" class="custom-input" placeholder="Escrib&iacute; tu propuesta&hellip;" onfocus="document.getElementById('n4').checked=true" autocomplete="off" spellcheck="false">
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- PREGUNTA 2: NIVELES -->
+    <div class="step">
+      <div class="step-header">
+        <div class="step-number">2</div>
+        <div class="step-title">Nombres de los niveles</div>
+      </div>
+      <p class="step-desc">&iquest;C&oacute;mo se deber&iacute;an llamar los 3&nbsp;niveles del programa?</p>
+      <div class="options">
+        <div class="option">
+          <input type="radio" name="niveles" id="l1" value="Activo → Pro → Embajador" required>
+          <label for="l1">
+            <span class="radio-dot"></span>
+            <span class="option-text">
+              <span class="name">Activo &rarr; Pro &rarr; Embajador</span>
+            </span>
+          </label>
+        </div>
+        <div class="option">
+          <input type="radio" name="niveles" id="l2" value="Impulso → Pro → Top">
+          <label for="l2">
+            <span class="radio-dot"></span>
+            <span class="option-text">
+              <span class="name">Impulso &rarr; Pro &rarr; Top</span>
+            </span>
+          </label>
+        </div>
+        <div class="option">
+          <input type="radio" name="niveles" id="l3" value="__custom__" onclick="document.getElementById('nivelesCustom').focus()">
+          <label for="l3">
+            <span class="radio-dot"></span>
+            <span class="option-text">
+              <span class="name">Otra idea</span>
+              <input type="text" id="nivelesCustom" class="custom-input" placeholder="Escrib&iacute; tu propuesta de niveles&hellip;" onfocus="document.getElementById('l3').checked=true" autocomplete="off" spellcheck="false">
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- PREGUNTA 3: COLORES -->
+    <div class="step">
+      <div class="step-header">
+        <div class="step-number">3</div>
+        <div class="step-title">Estilo visual</div>
+      </div>
+      <p class="step-desc">&iquest;Qu&eacute; estilo prefer&iacute;s para las p&aacute;ginas del programa?</p>
+      <div class="options">
+        <div class="option">
+          <input type="radio" name="colores" id="c1" value="Oscuro azul con part&iacute;culas" required>
+          <label for="c1">
+            <span class="radio-dot"></span>
+            <span class="option-text">
+              <span class="name">Oscuro azul con part&iacute;culas</span>
+              <span class="desc">Fondo azul profundo, glassmorphism, part&iacute;culas animadas</span>
+              <div class="style-mockup mockup-dark">
+                <div class="mockup-nav"><span>Tiendanube Partners</span><span style="color:#60a5fa">Ver ranking &rarr;</span></div>
+                <div class="mockup-body">
+                  <div class="mockup-dots"><span style="top:12%;left:15%"></span><span style="top:45%;left:80%"></span><span style="top:70%;left:35%"></span><span style="top:25%;left:60%"></span><span style="top:60%;left:90%"></span><span style="top:80%;left:10%"></span></div>
+                  <div class="mockup-badge">Programa de Lealtad</div>
+                  <div class="mockup-title">Cada tienda que refer&iacute;s, <em>suma</em></div>
+                  <div class="mockup-sub">Acumul&aacute; puntos por cada tienda que refer&iacute;s.</div>
+                  <div class="mockup-btn">Ver ranking</div>
+                  <div class="mockup-cards">
+                    <div class="mockup-card"><div class="mockup-card-label">Nivel 1</div><div class="mockup-card-sub">Activo</div></div>
+                    <div class="mockup-card"><div class="mockup-card-label">Nivel 2</div><div class="mockup-card-sub">Pro</div></div>
+                    <div class="mockup-card"><div class="mockup-card-label">Nivel 3</div><div class="mockup-card-sub">Embajador</div></div>
+                  </div>
+                </div>
+              </div>
+            </span>
+          </label>
+        </div>
+        <div class="option">
+          <input type="radio" name="colores" id="c2" value="Claro institucional (Nimbus)">
+          <label for="c2">
+            <span class="radio-dot"></span>
+            <span class="option-text">
+              <span class="name">Claro institucional (Nimbus)</span>
+              <span class="desc">Fondo blanco, tokens oficiales de Tiendanube, limpio y corporativo</span>
+              <div class="style-mockup mockup-light">
+                <div class="mockup-nav"><span>Tiendanube Partners</span><span style="color:#0059d5">Ver ranking &rarr;</span></div>
+                <div class="mockup-body">
+                  <div class="mockup-badge">Programa de Lealtad</div>
+                  <div class="mockup-title">Cada tienda que refer&iacute;s, <em>suma</em></div>
+                  <div class="mockup-sub">Acumul&aacute; puntos por cada tienda que refer&iacute;s.</div>
+                  <div class="mockup-btn">Ver ranking</div>
+                  <div class="mockup-cards">
+                    <div class="mockup-card"><div class="mockup-card-label">Nivel 1</div><div class="mockup-card-sub">Activo</div></div>
+                    <div class="mockup-card"><div class="mockup-card-label">Nivel 2</div><div class="mockup-card-sub">Pro</div></div>
+                    <div class="mockup-card"><div class="mockup-card-label">Nivel 3</div><div class="mockup-card-sub">Embajador</div></div>
+                  </div>
+                </div>
+              </div>
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="submit-section">
+      <div class="vote-error" id="voteError" aria-live="polite"></div>
+      <button type="submit" class="btn-vote" id="voteBtn">Enviar mi voto</button>
+    </div>
+
+  </form>
+
+  <div class="success-card" id="successCard">
+    <div class="check-icon" aria-hidden="true">&check;</div>
+    <h2>&iexcl;Gracias por votar!</h2>
+    <p>Stay tuned al team de Afiliados. 👀</p>
+  </div>
+
+</div>
+
+<footer>
+  <div class="container">
+    Votaci&oacute;n interna &bull; Equipo de Afiliados &bull; Tiendanube 2026
+  </div>
+</footer>
+
+<script>
+var APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycbwgnuyLLshMztBYkGfWdj1QsjsV0wqi9X1_cycu-ojPTCrIfNxyZaHQ4XJgj3-CpGFP/exec';
+
+function hasVoted(){
+  try{return localStorage.getItem('tn_loyalty_voted')==='1'}catch(e){return false}
+}
+
+function handleVote(e){
+  e.preventDefault();
+  var err=document.getElementById('voteError');
+  var btn=document.getElementById('voteBtn');
+  var nombre=document.querySelector('input[name="nombre"]:checked');
+  var niveles=document.querySelector('input[name="niveles"]:checked');
+  var colores=document.querySelector('input[name="colores"]:checked');
+
+  if(!nombre||!niveles||!colores){
+    err.textContent='Respond\u00e9 las 3 preguntas antes de enviar.';
+    var first=!nombre?document.querySelector('input[name="nombre"]'):!niveles?document.querySelector('input[name="niveles"]'):document.querySelector('input[name="colores"]');
+    first.closest('.step').scrollIntoView({behavior:'smooth',block:'center'});
+    return false;
+  }
+
+  var nombreVal=nombre.value,nivelesVal=niveles.value;
+  if(nombreVal==='__custom__'){
+    nombreVal=document.getElementById('nombreCustom').value.trim();
+    if(!nombreVal){err.textContent='Complet\u00e1 tu propuesta de nombre.';document.getElementById('nombreCustom').focus();return false}
+    nombreVal='Otra: '+nombreVal;
+  }
+  if(nivelesVal==='__custom__'){
+    nivelesVal=document.getElementById('nivelesCustom').value.trim();
+    if(!nivelesVal){err.textContent='Complet\u00e1 tu propuesta de niveles.';document.getElementById('nivelesCustom').focus();return false}
+    nivelesVal='Otra: '+nivelesVal;
+  }
+
+  err.textContent='';
+  btn.disabled=true;
+  btn.textContent='Enviando\u2026';
+
+  fetch(APPS_SCRIPT_URL,{
+    method:'POST',
+    mode:'no-cors',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      nombre:nombreVal,
+      niveles:nivelesVal,
+      colores:colores.value
+    })
+  }).then(function(){
+    try{localStorage.setItem('tn_loyalty_voted','1')}catch(ex){}
+    document.getElementById('voteForm').style.display='none';
+    document.getElementById('successCard').style.display='block';
+  }).catch(function(){
+    try{localStorage.setItem('tn_loyalty_voted','1')}catch(ex){}
+    document.getElementById('voteForm').style.display='none';
+    document.getElementById('successCard').style.display='block';
+  });
+
+  return false;
+}
+
+if(hasVoted()){
+  document.getElementById('voteForm').style.display='none';
+  document.getElementById('successCard').style.display='block';
+}
+</script>
+
+</body>
+</html>
